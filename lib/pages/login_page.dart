@@ -3,6 +3,7 @@ import 'package:trip_flutter/util/string_util.dart';
 import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/input_widget.dart';
 import 'package:trip_flutter/widget/login_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -75,6 +76,17 @@ class _LoginPageState extends State<LoginPage> {
               enable: loginEnable,
               // 这里的函数可以是 () => _login() 也可以是 _login.
               onPressed: () => _login(),
+            ),
+            hiSpace(height: 15),
+            Align(
+              alignment: Alignment.centerRight,
+              child: InkWell(
+                onTap: () => _jumpRegistration(),
+                child: const Text(
+                  "注册账号",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             )
           ],
         ));
@@ -94,4 +106,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _login() {}
+
+  _jumpRegistration() async {
+    //跳转h5网页
+    Uri uri =
+        Uri.parse('https://github.com/Liu-code3/trip_flutter/commits/main/');
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $uri';
+    }
+  }
 }
