@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_hi_cache/flutter_hi_cache.dart';
 import 'package:trip_flutter/dao/header_util.dart';
+import 'package:trip_flutter/util/navifator_util.dart';
 
 const url = 'http://192.168.10.5:9090';
 
@@ -40,5 +41,9 @@ class LoginDao {
     return HiCache.getInstance().get(boardingPass);
   }
 
-  static void logOut() {}
+  static void logOut() {
+    //移除登录保存的信息
+    HiCache.getInstance().remove(boardingPass);
+    NavigatorUtil.goToLogin();
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
+import 'package:trip_flutter/util/navifator_util.dart';
 import 'package:trip_flutter/util/string_util.dart';
 import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/input_widget.dart';
@@ -21,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // 防止键盘弹起影响布局
       body: Stack(
         children: [..._background(), _content()],
       ),
@@ -76,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               '登录',
               enable: loginEnable,
               // 这里的函数可以是 () => _login() 也可以是 _login.
-              onPressed: () => _login(),
+              onPressed: () => _login(context),
             ),
             hiSpace(height: 15),
             Align(
@@ -106,9 +108,10 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  _login() {
+  _login(BuildContext context) {
     try {
       LoginDao.login(userName: userName!, password: password!);
+      NavigatorUtil.goToHome(context);
     } catch (e) {
       print(e);
     }
