@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,10 +17,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //更新导航器的context，供退出登录时使用
-    NavigatorUtil.updateContext(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
         title: const Text('首页'),
         actions: [
           _logoutBtn,
