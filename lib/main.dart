@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hi_cache/flutter_hi_cache.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
-import 'package:trip_flutter/pages/home_page.dart';
+import 'package:trip_flutter/navifator/tab_navigator.dart';
 import 'package:trip_flutter/pages/login_page.dart';
 
 void main() {
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             if (LoginDao.getBoardingPass() == null) {
               return const LoginPage();
             } else {
-              return const HomePage();
+              return const TabNavigatorPage();
             }
           } else {
             return const Scaffold(
