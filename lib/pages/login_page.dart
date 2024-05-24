@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_flutter/dao/login_dao.dart';
 import 'package:trip_flutter/util/string_util.dart';
 import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/input_widget.dart';
@@ -105,7 +106,13 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  _login() {}
+  _login() {
+    try {
+      LoginDao.login(userName: userName!, password: password!);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   _jumpRegistration() async {
     //跳转h5网页
