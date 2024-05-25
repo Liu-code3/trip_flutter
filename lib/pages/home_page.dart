@@ -18,7 +18,9 @@ class _HomePageState extends State<HomePage> {
 
   final bannerList = [
     'https://dimg04.c-ctrip.com/images/0AM1t12000dpfh5fv8437.jpg',
-    'https://dimg04.c-ctrip.com/images/0AM6r12000cjugp0a2580.png'
+    'https://dimg04.c-ctrip.com/images/0AM6r12000cjugp0a2580.png',
+    'https://dimg04.c-ctrip.com/images/0302c12000d4f5uw7BBDA_D_350_170_Q70.png',
+    'https://dimg04.c-ctrip.com/images/0306c120008hel6un2E29_D_350_170_Q70.jpg'
   ];
 
   @override
