@@ -41,6 +41,8 @@ dependencies:
   dio: ^5.4.3+1
   # 封装的本地存储库
   flutter_hi_cache: ^0.0.1
+  # banner轮播图
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

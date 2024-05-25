@@ -14,7 +14,7 @@ class TabNavigatorPage extends StatefulWidget {
 
 class _TabNavigatorStateState extends State<TabNavigatorPage> {
   final PageController _controller = PageController(
-    initialPage: 1, // 默认打开的tab的索引
+    initialPage: 0, // 默认打开的tab的索引
   );
   int _currentIndex = 0;
 
