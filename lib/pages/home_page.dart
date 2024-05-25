@@ -10,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double appBarAlpha = 0;
+  static const appbarScrollOffset = 100;
   get _logoutBtn => ElevatedButton(
       onPressed: () {
         LoginDao.logOut();
@@ -23,21 +25,70 @@ class _HomePageState extends State<HomePage> {
     'https://dimg04.c-ctrip.com/images/0306c120008hel6un2E29_D_350_170_Q70.jpg'
   ];
 
+  get _appBar => Opacity(
+        opacity: appBarAlpha,
+        child: Container(
+          height: 80,
+          decoration: const BoxDecoration(color: Colors.white),
+          child: const Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Text('首页'),
+            ),
+          ),
+        ),
+      );
+
+  get _listView => ListView(
+        children: [
+          BannerWidget(bannerList: bannerList),
+          _logoutBtn,
+          const SizedBox(
+            height: 800,
+            child: ListTile(
+              title: Text('hh'),
+            ),
+          )
+        ],
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        centerTitle: true,
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
-        title: const Text('首页'),
-        actions: [
-          _logoutBtn,
+      body: Stack(
+        children: [
+          MediaQuery.removePadding(
+              removeTop: true, // 移除顶部空白
+              context: context,
+              child: NotificationListener(
+                onNotification: (scrollNotification) {
+                  if (scrollNotification is ScrollUpdateNotification &&
+                      scrollNotification.depth == 0) {
+                    ///通过depth来过滤指定widget发出的滚动事件, depth == 0表示最外层的列表发出的滚动事件滚动且是列表滚动的事件
+                    _onScroll(scrollNotification.metrics.pixels);
+                  }
+                  return false;
+                },
+                child: _listView,
+              )),
+          _appBar
         ],
       ),
-      body: Column(
-        children: [BannerWidget(bannerList: bannerList)],
-      ),
     );
+  }
+
+  void _onScroll(double offset) {
+    print('offset: $offset');
+    double alpha = offset / appbarScrollOffset;
+    if (alpha < 0) {
+      alpha = 0;
+    } else if (alpha > 1) {
+      alpha = 1;
+    }
+    print('alpha: $alpha');
+    setState(() {
+      appBarAlpha = alpha;
+    });
+    print('appBarAlpha: $appBarAlpha');
   }
 }
