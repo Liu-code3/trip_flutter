@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:trip_flutter/dao/home_dao.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
+import 'package:trip_flutter/model/home_model.dart';
 import 'package:trip_flutter/widget/banner_widget.dart';
 
 class HomePage extends StatefulWidget {
+  static Config? configModel;
+
   const HomePage({super.key});
 
   @override
@@ -12,18 +16,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double appBarAlpha = 0;
   static const appbarScrollOffset = 100;
+
+  List<CommonModel> bannerList = [];
+  List<CommonModel> localNavList = [];
+  List<CommonModel> subNavList = [];
+  GridNav? gridNavModel; // 可空的意思可以避免一些空安全的问题
+  SalesBox? salesBoxModel;
+
   get _logoutBtn => ElevatedButton(
       onPressed: () {
         LoginDao.logOut();
       },
       child: const Text('登出'));
-
-  final bannerList = [
-    'https://dimg04.c-ctrip.com/images/0AM1t12000dpfh5fv8437.jpg',
-    'https://dimg04.c-ctrip.com/images/0AM6r12000cjugp0a2580.png',
-    'https://dimg04.c-ctrip.com/images/0302c12000d4f5uw7BBDA_D_350_170_Q70.png',
-    'https://dimg04.c-ctrip.com/images/0306c120008hel6un2E29_D_350_170_Q70.jpg'
-  ];
 
   get _appBar => Opacity(
         opacity: appBarAlpha,
@@ -43,6 +47,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           BannerWidget(bannerList: bannerList),
           _logoutBtn,
+          Text(gridNavModel?.flight?.item1?.title ?? ''),
           const SizedBox(
             height: 800,
             child: ListTile(
@@ -51,6 +56,12 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       );
+
+  @override
+  void initState() {
+    super.initState();
+    _handleRefresh();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,5 +101,22 @@ class _HomePageState extends State<HomePage> {
       appBarAlpha = alpha;
     });
     print('appBarAlpha: $appBarAlpha');
+  }
+
+  Future<void> _handleRefresh() async {
+    try {
+      HomeModel model = await HomeDao.fetch();
+      setState(() {
+        HomePage.configModel = model.config;
+        localNavList =
+            model.localNavList ?? []; // 或者 localNavList = model.localNavList!;
+        subNavList = model.subNavList ?? [];
+        gridNavModel = model.gridNav;
+        salesBoxModel = model.salesBox;
+        bannerList = model.bannerList ?? [];
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

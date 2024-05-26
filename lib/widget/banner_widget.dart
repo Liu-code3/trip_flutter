@@ -1,9 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:trip_flutter/model/home_model.dart';
 import 'package:trip_flutter/util/screen_adapter_helper.dart';
 
 class BannerWidget extends StatefulWidget {
-  final List<String> bannerList;
+  final List<CommonModel> bannerList;
   const BannerWidget({super.key, required this.bannerList});
 
   @override
@@ -23,6 +24,7 @@ class _BannerWidgetState extends State<BannerWidget> {
         CarouselSlider(
           // 这里的items的属性要求是List<Widget> 所以需要把List<String> -> 转为 List<Widget>
           items:
+              // widget.bannerList.map((item) => _tabImage(item, width)).toList(),
               widget.bannerList.map((item) => _tabImage(item, width)).toList(),
           carouselController: _controller,
           options: CarouselOptions(
@@ -41,14 +43,14 @@ class _BannerWidgetState extends State<BannerWidget> {
   }
 
   /// String转为Widget
-  Widget _tabImage(String imageUrl, double width) {
+  Widget _tabImage(CommonModel model, double width) {
     // GestureDetector 手势包装器
     return GestureDetector(
       onTap: () {
         // TODO NavigatorUtil. 点击图片跳转到h5
       },
       child: Image.network(
-        imageUrl,
+        model.icon!,
         width: width,
         fit: BoxFit.cover,
       ),

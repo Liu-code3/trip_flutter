@@ -4,11 +4,11 @@ import 'package:trip_flutter/dao/header_util.dart';
 import 'package:trip_flutter/util/navifator_util.dart';
 
 const url = 'http://192.168.10.5:9090';
+final dio = Dio();
 
 ///登录接口
 class LoginDao {
   static const boardingPass = 'boading_pass';
-  static final dio = Dio();
 
   static login({required String userName, required String password}) async {
     Map<String, String> paramsMap = {
