@@ -49,11 +49,7 @@ class _BannerWidgetState extends State<BannerWidget> {
       onTap: () {
         // TODO NavigatorUtil. 点击图片跳转到h5
       },
-      child: Image.network(
-        model.icon!,
-        width: width,
-        fit: BoxFit.cover,
-      ),
+      child: Image.network(model.icon!, width: width, fit: BoxFit.cover),
     );
   }
 

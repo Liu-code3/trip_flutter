@@ -3,6 +3,7 @@ import 'package:trip_flutter/dao/home_dao.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
 import 'package:trip_flutter/model/home_model.dart';
 import 'package:trip_flutter/widget/banner_widget.dart';
+import 'package:trip_flutter/widget/grid_nav_widget.dart';
 import 'package:trip_flutter/widget/local_nav_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           BannerWidget(bannerList: bannerList),
           LocalNavWidget(localNavList: localNavList),
+          if (gridNavModel != null) GridNavWidget(gridNavModel: gridNavModel!),
           _logoutBtn,
           const SizedBox(
             height: 800,
