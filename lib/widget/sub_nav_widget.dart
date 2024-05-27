@@ -53,8 +53,8 @@ class SubNavWidget extends StatelessWidget {
         children: [
           Image.network(
             model.icon!,
-            width: 18,
-            height: 18,
+            width: 28,
+            height: 28,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 3),

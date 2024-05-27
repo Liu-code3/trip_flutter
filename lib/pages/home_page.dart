@@ -5,6 +5,7 @@ import 'package:trip_flutter/model/home_model.dart';
 import 'package:trip_flutter/widget/banner_widget.dart';
 import 'package:trip_flutter/widget/grid_nav_widget.dart';
 import 'package:trip_flutter/widget/local_nav_widget.dart';
+import 'package:trip_flutter/widget/sales_box_widget.dart';
 import 'package:trip_flutter/widget/sub_nav_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -53,9 +54,10 @@ class _HomePageState extends State<HomePage> {
           if (gridNavModel != null)
             GridNavWidget(gridNavModel: gridNavModel!), // 数据在此判断
           SubNavWidget(subNavList: subNavList), // 数据在该widget中判断
+          if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!),
           _logoutBtn,
           const SizedBox(
-            height: 800,
+            // height: 800,
             child: ListTile(
               title: Text('hh'),
             ),
