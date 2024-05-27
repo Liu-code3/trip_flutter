@@ -5,6 +5,7 @@ import 'package:trip_flutter/model/home_model.dart';
 import 'package:trip_flutter/widget/banner_widget.dart';
 import 'package:trip_flutter/widget/grid_nav_widget.dart';
 import 'package:trip_flutter/widget/local_nav_widget.dart';
+import 'package:trip_flutter/widget/sub_nav_widget.dart';
 
 class HomePage extends StatefulWidget {
   static Config? configModel;
@@ -49,7 +50,9 @@ class _HomePageState extends State<HomePage> {
         children: [
           BannerWidget(bannerList: bannerList),
           LocalNavWidget(localNavList: localNavList),
-          if (gridNavModel != null) GridNavWidget(gridNavModel: gridNavModel!),
+          if (gridNavModel != null)
+            GridNavWidget(gridNavModel: gridNavModel!), // 数据在此判断
+          SubNavWidget(subNavList: subNavList), // 数据在该widget中判断
           _logoutBtn,
           const SizedBox(
             height: 800,
@@ -69,6 +72,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xfff2f2f2),
       body: Stack(
         children: [
           MediaQuery.removePadding(
