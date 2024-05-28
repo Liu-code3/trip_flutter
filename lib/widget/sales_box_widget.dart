@@ -24,6 +24,7 @@ class SalesBoxWidget extends StatelessWidget {
         context, salesBox.smallCard3!, salesBox.smallCard4!, false, false));
     return Column(
       children: [
+        _titleItem(),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: items.sublist(0, 1),
@@ -37,6 +38,28 @@ class SalesBoxWidget extends StatelessWidget {
           children: items.sublist(2, 3),
         )
       ],
+    );
+  }
+
+  //活动Item
+  _titleItem() {
+    return Container(
+      height: 44,
+      margin: const EdgeInsets.only(left: 10),
+      decoration: const BoxDecoration(
+          border:
+              Border(bottom: BorderSide(width: 1, color: Color(0xfff2f2f2)))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.network(
+            salesBox.icon!,
+            height: 15,
+            fit: BoxFit.fill,
+          ),
+          _moreItem()
+        ],
+      ),
     );
   }
 
@@ -72,6 +95,30 @@ class SalesBoxWidget extends StatelessWidget {
           fit: BoxFit.cover,
           width: width,
           height: big ? 129 : 80,
+        ),
+      ),
+    );
+  }
+
+  /// 更多活动
+  _moreItem() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 1, 8, 1),
+      margin: const EdgeInsets.only(right: 7),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: const LinearGradient(
+              colors: [Color(0xffff4e63), Color(0xffff6cc9)],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight) // 从左到右的渐变
+          ),
+      child: GestureDetector(
+        onTap: () {
+          // TODO 跳转h5
+        },
+        child: const Text(
+          '获取更多福利 >',
+          style: TextStyle(fontSize: 12, color: Colors.white),
         ),
       ),
     );
