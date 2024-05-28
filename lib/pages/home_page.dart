@@ -4,6 +4,7 @@ import 'package:trip_flutter/dao/login_dao.dart';
 import 'package:trip_flutter/model/home_model.dart';
 import 'package:trip_flutter/widget/banner_widget.dart';
 import 'package:trip_flutter/widget/grid_nav_widget.dart';
+import 'package:trip_flutter/widget/loading_container.dart';
 import 'package:trip_flutter/widget/local_nav_widget.dart';
 import 'package:trip_flutter/widget/sales_box_widget.dart';
 import 'package:trip_flutter/widget/sub_nav_widget.dart';
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   List<CommonModel> subNavList = [];
   GridNav? gridNavModel; // 可空的意思可以避免一些空安全的问题
   SalesBox? salesBoxModel;
+  bool _loading = true;
 
   get _logoutBtn => ElevatedButton(
       onPressed: () {
@@ -36,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   get _appBar => Opacity(
         opacity: appBarAlpha,
         child: Container(
+          padding: const EdgeInsets.only(top: 20), // 适配这个灵动岛
           height: 80,
           decoration: const BoxDecoration(color: Colors.white),
           child: const Center(
@@ -65,6 +68,24 @@ class _HomePageState extends State<HomePage> {
         ],
       );
 
+  get _contentView => MediaQuery.removePadding(
+        removeTop: true, // 移除顶部空白
+        context: context,
+        child: RefreshIndicator(
+            onRefresh: _handleRefresh,
+            child: NotificationListener(
+              onNotification: (scrollNotification) {
+                if (scrollNotification is ScrollUpdateNotification &&
+                    scrollNotification.depth == 0) {
+                  ///通过depth来过滤指定widget发出的滚动事件, depth == 0表示最外层的列表发出的滚动事件滚动且是列表滚动的事件
+                  _onScroll(scrollNotification.metrics.pixels);
+                }
+                return false;
+              },
+              child: _listView,
+            )),
+      );
+
   @override
   void initState() {
     super.initState();
@@ -75,24 +96,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xfff2f2f2),
-      body: Stack(
-        children: [
-          MediaQuery.removePadding(
-              removeTop: true, // 移除顶部空白
-              context: context,
-              child: NotificationListener(
-                onNotification: (scrollNotification) {
-                  if (scrollNotification is ScrollUpdateNotification &&
-                      scrollNotification.depth == 0) {
-                    ///通过depth来过滤指定widget发出的滚动事件, depth == 0表示最外层的列表发出的滚动事件滚动且是列表滚动的事件
-                    _onScroll(scrollNotification.metrics.pixels);
-                  }
-                  return false;
-                },
-                child: _listView,
-              )),
-          _appBar
-        ],
+      body: LoadingContainer(
+        isLoading: _loading,
+        child: Stack(
+          children: [_contentView, _appBar],
+        ),
       ),
     );
   }
@@ -123,9 +131,13 @@ class _HomePageState extends State<HomePage> {
         gridNavModel = model.gridNav;
         salesBoxModel = model.salesBox;
         bannerList = model.bannerList ?? [];
+        _loading = false;
       });
     } catch (e) {
       debugPrint(e.toString());
+      setState(() {
+        _loading = false;
+      });
     }
   }
 }
