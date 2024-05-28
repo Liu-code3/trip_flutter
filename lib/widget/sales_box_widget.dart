@@ -19,9 +19,9 @@ class SalesBoxWidget extends StatelessWidget {
     items.add(_doubleItem(
         context, salesBox.bigCard1!, salesBox.bigCard2!, true, false));
     items.add(_doubleItem(
-        context, salesBox.smallCard1!, salesBox.smallCard2!, true, false));
+        context, salesBox.smallCard1!, salesBox.smallCard2!, false, false));
     items.add(_doubleItem(
-        context, salesBox.smallCard3!, salesBox.smallCard4!, true, false));
+        context, salesBox.smallCard3!, salesBox.smallCard4!, false, false));
     return Column(
       children: [
         Row(
@@ -69,7 +69,7 @@ class SalesBoxWidget extends StatelessWidget {
                 bottom: last ? BorderSide.none : borderSide)),
         child: Image.network(
           model.icon!,
-          // fit: BoxFit.contain,
+          fit: BoxFit.cover,
           width: width,
           height: big ? 129 : 80,
         ),
