@@ -2,52 +2,80 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/dao/search_dao.dart';
+import 'package:trip_flutter/model/search_model.dart';
+import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/search_bar_widget.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  ///是否隐藏左侧返回键
+  final bool? hideLeft;
+  final String? keyword;
+  final String? hint;
+
+  const SearchPage({super.key, this.keyword, this.hint, this.hideLeft});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-  String showText = '';
+  SearchModel? searchModel;
+  String? keyword;
+
+  get _appBar {
+    // 获取刘海屏Top安全边距
+    double top = MediaQuery.of(context).padding.top;
+    return shadowWarp(
+        child: Container(
+          height: 80 + top,
+          decoration: const BoxDecoration(color: Colors.white),
+          padding: EdgeInsets.only(top: top),
+          child: SearchBarWidget(
+            hideLeft: widget.hideLeft,
+            defaultText: widget.keyword,
+            hint: widget.hint,
+            leftButtonClick: () => NavigatorUtil.pop(context),
+            onChanged: _onTextChange,
+          ),
+        ),
+        padding: const EdgeInsets.only(bottom: 5));
+  }
+
+  get _listView => MediaQuery.removePadding(
+      context: context,
+      child: Expanded(
+          child: ListView.builder(
+              itemCount: searchModel?.data?.length ?? 0,
+              itemBuilder: (BuildContext context, int index) {
+                return _item(index);
+              })));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey,
-        appBar: AppBar(
-            backgroundColor: Colors.blue,
-            centerTitle: true,
-            titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
-            title: const Text('搜索')),
-        body: ListView(
-          children: [
-            SearchBarWidget(
-              hideLeft: true,
-              defaultText: '徐州',
-              hint: '请输入',
-              leftButtonClick: () {
-                Navigator.pop(context);
-              },
-              onChanged: _onTextChange,
-            ),
-            Text(showText)
-          ],
-        ));
+        body: Column(
+      children: [_appBar, _listView],
+    ));
   }
 
   void _onTextChange(String value) async {
     try {
-      final result = await SearchDao.fetch(value);
-
-      setState(() {
-        showText = jsonEncode(result);
-      });
+      var result = await SearchDao.fetch(value);
+      if (result == null) return;
+      //只有当前输入的内容和服务端返回的内容一致的时候才渲染
+      if (result.keyword == value) {
+        setState(() {
+          searchModel = result;
+        });
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  Widget _item(int index) {
+    var item = searchModel?.data?[index];
+    return Text(jsonEncode(item));
   }
 }

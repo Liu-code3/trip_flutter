@@ -29,4 +29,11 @@ class NavigatorUtil {
     Navigator.pushReplacement(
         _context!, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
+
+  ///返回上一页
+  static pop(BuildContext context) {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
+  }
 }

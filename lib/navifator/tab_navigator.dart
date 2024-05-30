@@ -30,7 +30,14 @@ class _TabNavigatorStateState extends State<TabNavigatorPage> {
         controller: _controller,
         physics:
             const NeverScrollableScrollPhysics(), // pageView滚动效果 这里设置为禁用左右滚动
-        children: [HomePage(), SearchPage(), TravelPage(), MyPage()],
+        children: const [
+          HomePage(),
+          SearchPage(
+            hideLeft: true,
+          ),
+          TravelPage(),
+          MyPage()
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         fixedColor: Colors.blue, // 指定底部导航栏label默认颜色 flutter版本问题
