@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:trip_flutter/dao/search_dao.dart';
 import 'package:trip_flutter/widget/search_bar_widget.dart';
 
 class SearchPage extends StatefulWidget {
@@ -9,6 +12,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  String showText = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,16 +23,31 @@ class _SearchPageState extends State<SearchPage> {
             centerTitle: true,
             titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
             title: const Text('搜索')),
-        body: const Column(
+        body: ListView(
           children: [
-            SearchBarWidget(),
             SearchBarWidget(
-              searchBarType: SearchBarType.home,
+              hideLeft: true,
+              defaultText: '徐州',
+              hint: '请输入',
+              leftButtonClick: () {
+                Navigator.pop(context);
+              },
+              onChanged: _onTextChange,
             ),
-            SearchBarWidget(
-              searchBarType: SearchBarType.homeLight,
-            )
+            Text(showText)
           ],
         ));
+  }
+
+  void _onTextChange(String value) async {
+    try {
+      final result = await SearchDao.fetch(value);
+
+      setState(() {
+        showText = jsonEncode(result);
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

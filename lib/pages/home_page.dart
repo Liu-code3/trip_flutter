@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:trip_flutter/dao/home_dao.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
 import 'package:trip_flutter/model/home_model.dart';
+import 'package:trip_flutter/pages/search_page.dart';
+import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/banner_widget.dart';
 import 'package:trip_flutter/widget/grid_nav_widget.dart';
 import 'package:trip_flutter/widget/loading_container.dart';
 import 'package:trip_flutter/widget/local_nav_widget.dart';
 import 'package:trip_flutter/widget/sales_box_widget.dart';
+import 'package:trip_flutter/widget/search_bar_widget.dart';
 import 'package:trip_flutter/widget/sub_nav_widget.dart';
+
+const searchBarDefaultText = '网红打开地 景点 酒店 美食';
 
 class HomePage extends StatefulWidget {
   static Config? configModel;
@@ -35,20 +41,38 @@ class _HomePageState extends State<HomePage> {
       },
       child: const Text('登出'));
 
-  get _appBar => Opacity(
-        opacity: appBarAlpha,
-        child: Container(
-          padding: const EdgeInsets.only(top: 20), // 适配这个灵动岛
-          height: 80,
-          decoration: const BoxDecoration(color: Colors.white),
-          child: const Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text('首页'),
-            ),
+  get _appBar {
+    //获取刘海屏实际的Top安全边距
+    double top = MediaQuery.of(context).padding.top;
+    return Column(
+      children: [
+        shadowWarp(
+            child: Container(
+          padding: EdgeInsets.only(top: top),
+          height: 60 + top,
+          decoration: BoxDecoration(
+              color:
+                  Color.fromARGB((appBarAlpha * 255).toInt(), 255, 255, 255)),
+          child: SearchBarWidget(
+            searchBarType: appBarAlpha > 0.2
+                ? SearchBarType.homeLight
+                : SearchBarType.home,
+            inputBoxClick: _jumpToSearch,
+            defaultText: searchBarDefaultText,
+            rightButtonClick: () {
+              LoginDao.logOut();
+            },
           ),
-        ),
-      );
+        )),
+        // bottom line
+        Container(
+          height: appBarAlpha > 0.2 ? 0.5 : 0,
+          decoration: const BoxDecoration(
+              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]),
+        )
+      ],
+    );
+  }
 
   get _listView => ListView(
         children: [
@@ -139,5 +163,9 @@ class _HomePageState extends State<HomePage> {
         _loading = false;
       });
     }
+  }
+
+  void _jumpToSearch() {
+    NavigatorUtil.push(context, const SearchPage());
   }
 }
