@@ -168,6 +168,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           controller: _controller,
           onChanged: _onChanged,
           autofocus: true,
+          cursorColor: Colors.blue,
+          cursorHeight: 28,
           style: const TextStyle(
               fontSize: 18, color: Colors.black, fontWeight: FontWeight.w300),
           //输入框的文本样式
