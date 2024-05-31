@@ -3,7 +3,7 @@ class SearchModel {
   String? keyword;
 
   int? code;
-  List<Data>? data;
+  List<SearchItem>? data;
   String? message;
 
   SearchModel({code, data});
@@ -12,9 +12,9 @@ class SearchModel {
     code = json['code'];
     message = json['message'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <SearchItem>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(SearchItem.fromJson(v));
       });
     }
   }
@@ -30,7 +30,7 @@ class SearchModel {
   }
 }
 
-class Data {
+class SearchItem {
   String? code;
   String? word;
   String? type;
@@ -44,7 +44,7 @@ class Data {
   String? zonename;
   String? star;
 
-  Data(
+  SearchItem(
       {code,
       word,
       type,
@@ -58,7 +58,7 @@ class Data {
       zonename,
       star});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  SearchItem.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     word = json['word'];
     type = json['type'];

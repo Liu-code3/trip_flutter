@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/dao/search_dao.dart';
 import 'package:trip_flutter/model/search_model.dart';
 import 'package:trip_flutter/util/navifator_util.dart';
 import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/search_bar_widget.dart';
+import 'package:trip_flutter/widget/search_item_widget.dart';
 
 class SearchPage extends StatefulWidget {
   ///是否隐藏左侧返回键
@@ -76,6 +75,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _item(int index) {
     var item = searchModel?.data?[index];
-    return Text(jsonEncode(item));
+    if (item == null) return Container();
+    return SearchItemWidget(searchItem: item);
   }
 }
