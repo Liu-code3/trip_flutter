@@ -51,6 +51,7 @@ class _TravelPageState extends State<TravelTabPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: LoadingContainer(
           isLoading: _loading,
