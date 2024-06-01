@@ -35,6 +35,10 @@ class _SearchPageState extends State<SearchPage> {
             defaultText: widget.keyword,
             hint: widget.hint,
             leftButtonClick: () => NavigatorUtil.pop(context),
+            rightButtonClick: () {
+              //收起键盘
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
             onChanged: _onTextChange,
           ),
         ),
@@ -42,6 +46,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   get _listView => MediaQuery.removePadding(
+      removeTop: true,
       context: context,
       child: Expanded(
           child: ListView.builder(
@@ -49,6 +54,14 @@ class _SearchPageState extends State<SearchPage> {
               itemBuilder: (BuildContext context, int index) {
                 return _item(index);
               })));
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.keyword != null) {
+      _onTextChange(widget.keyword!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +88,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _item(int index) {
     var item = searchModel?.data?[index];
-    if (item == null) return Container();
-    return SearchItemWidget(searchItem: item);
+    if (item == null || searchModel == null) return Container();
+    return SearchItemWidget(searchItem: item, searchModel: searchModel!);
   }
 }

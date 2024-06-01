@@ -34,6 +34,7 @@ class _TabNavigatorStateState extends State<TabNavigatorPage> {
           HomePage(),
           SearchPage(
             hideLeft: true,
+            keyword: '北京',
           ),
           TravelPage(),
           MyPage()
