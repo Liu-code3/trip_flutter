@@ -35,12 +35,6 @@ class _HomePageState extends State<HomePage> {
   SalesBox? salesBoxModel;
   bool _loading = true;
 
-  get _logoutBtn => ElevatedButton(
-      onPressed: () {
-        LoginDao.logOut();
-      },
-      child: const Text('登出'));
-
   get _appBar {
     //获取刘海屏实际的Top安全边距
     double top = MediaQuery.of(context).padding.top;
@@ -81,14 +75,7 @@ class _HomePageState extends State<HomePage> {
           if (gridNavModel != null)
             GridNavWidget(gridNavModel: gridNavModel!), // 数据在此判断
           SubNavWidget(subNavList: subNavList), // 数据在该widget中判断
-          if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!),
-          _logoutBtn,
-          const SizedBox(
-            // height: 800,
-            child: ListTile(
-              title: Text('hh'),
-            ),
-          )
+          if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!)
         ],
       );
 
@@ -130,18 +117,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onScroll(double offset) {
-    print('offset: $offset');
     double alpha = offset / appbarScrollOffset;
     if (alpha < 0) {
       alpha = 0;
     } else if (alpha > 1) {
       alpha = 1;
     }
-    print('alpha: $alpha');
     setState(() {
       appBarAlpha = alpha;
     });
-    print('appBarAlpha: $appBarAlpha');
   }
 
   Future<void> _handleRefresh() async {
