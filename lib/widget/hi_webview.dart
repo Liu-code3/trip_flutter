@@ -53,14 +53,28 @@ class _HiWebViewState extends State<HiWebView> {
     } else {
       backButtonColor = Colors.white;
     }
-    return Scaffold(
-      body: Column(children: [
-        _appBar(Color(int.parse('0xff$statusBarColorStr')), backButtonColor),
-        Expanded(
-            child: WebViewWidget(
-          controller: controller,
-        ))
-      ]),
+    // 处理Android物理返回键 返回H5的上一页
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) async {
+        if (await controller.canGoBack()) {
+          //返回h5的上一页
+          controller.goBack();
+        } else {
+          if (context.mounted) {
+            NavigatorUtil.pop(context); // 在Future函数中使用context 需要判断一下页面是否在装载后
+          }
+        }
+      },
+      child: Scaffold(
+        body: Column(children: [
+          _appBar(Color(int.parse('0xff$statusBarColorStr')), backButtonColor),
+          Expanded(
+              child: WebViewWidget(
+            controller: controller,
+          ))
+        ]),
+      ),
     );
   }
 

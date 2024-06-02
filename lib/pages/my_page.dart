@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_flutter/widget/hi_webview.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -16,8 +17,9 @@ class _MyPageState extends State<MyPage> {
             centerTitle: true,
             titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
             title: const Text('我的')),
-        body: const Center(
-          child: Text('我的'),
+        body: const HiWebView(
+          url: 'https://www.imooc.com/t/4951150#Shizhan',
+          hideAppBar: true,
         ));
   }
 }
