@@ -45,11 +45,17 @@ class NavigatorUtil {
   ///跳转h5页面
   static jumpH5(
       {BuildContext? context,
-      required String url,
+      String? url,
       String? title,
       bool? hideAppBar,
       String? statusBarColor}) {
     BuildContext? safeContext;
+
+    if (url == null) {
+      debugPrint('url is null jumpH5 failed.');
+      return;
+    }
+
     if (context != null) {
       safeContext = context;
     } else if (_context?.mounted ?? false) {
