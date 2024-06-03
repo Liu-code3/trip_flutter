@@ -3,7 +3,7 @@ import 'package:trip_flutter/dao/home_dao.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
 import 'package:trip_flutter/model/home_model.dart';
 import 'package:trip_flutter/pages/search_page.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/banner_widget.dart';
 import 'package:trip_flutter/widget/grid_nav_widget.dart';

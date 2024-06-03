@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_hi_cache/flutter_hi_cache.dart';
 import 'package:trip_flutter/dao/header_util.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 const url = 'http://192.168.10.5:9090';
 final dio = Dio();

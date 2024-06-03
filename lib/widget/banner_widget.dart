@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/model/home_model.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 import 'package:trip_flutter/util/screen_adapter_helper.dart';
 
 class BannerWidget extends StatefulWidget {

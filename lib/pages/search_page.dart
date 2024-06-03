@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/dao/search_dao.dart';
 import 'package:trip_flutter/model/search_model.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/search_bar_widget.dart';
 import 'package:trip_flutter/widget/search_item_widget.dart';

@@ -34,40 +34,20 @@ class NavigatorUtil {
   }
 
   ///返回上一页
-  // static void pop(BuildContext context) {
-  //   if (_isPopping) return;
-  //   _isPopping = true;
-  //   print('fuckingStart');
-  //
-  //   if (Navigator.canPop(context)) {
-  //     Navigator.pop(context);
-  //     print('fuck1');
-  //   } else {
-  //     // 退出app
-  //     SystemNavigator.pop();
-  //     print('fuck2');
-  //   }
-  //
-  //   Future.delayed(const Duration(milliseconds: 500), () {
-  //     _isPopping = false;
-  //   });
-  // }
-  ///返回上一页
   static void pop(BuildContext context) {
     if (_isPopping) return;
     _isPopping = true;
-    print('Starting pop process');
 
     if (Navigator.canPop(context)) {
-      print('Navigator pop called');
       Navigator.pop(context);
     } else {
-      print('System navigator pop called');
       // 退出app
       SystemNavigator.pop();
     }
 
-    Future.delayed(const Duration(milliseconds: 500), () {
+    // 在这 500 毫秒内，任何试图再次调用 pop 的操作都将被阻止，因为 _isPopping 为 true。
+    // 500 毫秒后，回调被事件循环执行，将 _isPopping 重置为 false，允许未来的 pop 操作
+    Future.delayed(const Duration(milliseconds: 300), () {
       _isPopping = false;
     });
   }
@@ -92,6 +72,7 @@ class NavigatorUtil {
       safeContext = _context;
     } else {
       debugPrint('context is null jumpH5 failed.');
+      return;
     }
 
     Navigator.push(

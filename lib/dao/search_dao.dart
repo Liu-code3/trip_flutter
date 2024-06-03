@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:trip_flutter/model/search_model.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 const url = 'http://192.168.10.5:9090';
 final dio = Dio();

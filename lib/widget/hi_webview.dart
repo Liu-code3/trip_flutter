@@ -1,7 +1,7 @@
-import 'dart:async';
+// import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 ///H5容器
@@ -28,8 +28,6 @@ class HiWebView extends StatefulWidget {
 
 class _HiWebViewState extends State<HiWebView> {
   //Completer是一个帮助我们控制异步操作完成状态的工具
-  final Completer<void> _popCompleter = Completer<void>();
-  // bool _isPopProcessing = false; // 标志位，防止重复调用
 
   ///主页代表的url
   final _catchUrls = [
@@ -64,37 +62,13 @@ class _HiWebViewState extends State<HiWebView> {
     return PopScope(
         canPop: false, // 用于指示是否允许 Flutter 默认的返回操作
         onPopInvoked: (bool didPop) async {
-          // if (_isPopProcessing) return; // 如果正在处理，直接返回
-          // _isPopProcessing = true; // 设置标志位为正在处理
-          //
-          // try {
-          //   bool canGoBack = await controller.canGoBack();
-          //   if (canGoBack) {
-          //     controller.goBack();
-          //   } else {
-          //     if (context.mounted) {
-          //       NavigatorUtil.pop(context);
-          //     }
-          //   }
-          // } catch (e) {
-          //   debugPrint('WebView Error: ${e.toString()}');
-          // } finally {
-          //   _isPopProcessing = false; // 处理完毕，重置标志位
-          // }
-          // _isPopProcessing = false;
-
           ///以下方法解决onPopInvoked被调用两次也是没问题的
           bool canGoBack = await controller.canGoBack();
           if (canGoBack) {
-            //返回H5的上一页
             controller.goBack();
           } else {
-            if (!_popCompleter.isCompleted) {
-              if (context.mounted) {
-                _popCompleter.complete();
-                NavigatorUtil.pop(context);
-              }
-              ;
+            if (context.mounted) {
+              NavigatorUtil.pop(context);
             }
           }
         },

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 import '../model/home_model.dart';
 

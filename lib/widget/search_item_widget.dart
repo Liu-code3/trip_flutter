@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/model/search_model.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 //图标类型的映射
 const types = [

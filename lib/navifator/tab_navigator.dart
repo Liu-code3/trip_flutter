@@ -3,7 +3,7 @@ import 'package:trip_flutter/pages/home_page.dart';
 import 'package:trip_flutter/pages/my_page.dart';
 import 'package:trip_flutter/pages/search_page.dart';
 import 'package:trip_flutter/pages/travel_page.dart';
-import 'package:trip_flutter/util/navifator_util.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 class TabNavigatorPage extends StatefulWidget {
   const TabNavigatorPage({super.key});
