@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_flutter/util/navifator_util.dart';
 
 import '../model/home_model.dart';
 
@@ -36,7 +37,7 @@ class LocalNavWidget extends StatelessWidget {
   Widget _item(BuildContext context, CommonModel model) {
     return GestureDetector(
       onTap: () {
-        // TODO 跳转h5
+        NavigatorUtil.jumpH5(context: context, url: model.url, title: '详情');
       },
       child: Column(
         children: [

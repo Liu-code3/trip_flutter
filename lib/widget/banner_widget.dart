@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/model/home_model.dart';
+import 'package:trip_flutter/util/navifator_util.dart';
 import 'package:trip_flutter/util/screen_adapter_helper.dart';
 
 class BannerWidget extends StatefulWidget {
@@ -47,7 +48,7 @@ class _BannerWidgetState extends State<BannerWidget> {
     // GestureDetector 手势包装器
     return GestureDetector(
       onTap: () {
-        // TODO NavigatorUtil. 点击图片跳转到h5
+        NavigatorUtil.jumpH5(context: context, url: model.url, title: '图片详情');
       },
       child: Image.network(model.icon!, width: width, fit: BoxFit.cover),
     );

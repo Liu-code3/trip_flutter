@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/model/search_model.dart';
+import 'package:trip_flutter/util/navifator_util.dart';
 
 //图标类型的映射
 const types = [
@@ -82,7 +83,8 @@ class SearchItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // TODO 跳转h5
+        NavigatorUtil.jumpH5(
+            context: context, url: searchItem.url, title: '详情');
       },
       child: _item,
     );
