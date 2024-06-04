@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:trip_flutter/model/travel_tab_model.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 ///瀑布流卡片
 class TravelItemWidget extends StatelessWidget {
@@ -74,7 +75,8 @@ class TravelItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // TODO 跳转h5
+        var h5Url = _findJumpUrl();
+        NavigatorUtil.jumpH5(url: h5Url, title: '旅拍详情');
       },
       child: Card(
         child: PhysicalModel(
@@ -138,5 +140,20 @@ class TravelItemWidget extends StatelessWidget {
     return item.article?.pois == null || item.article!.pois!.isEmpty
         ? '未知'
         : item.article?.pois?[0].poiName ?? '';
+  }
+
+  ///查找帖子跳转链接
+  String? _findJumpUrl() {
+    String h5url = '';
+    if (item.article?.urls?.isEmpty ?? false) {
+      return h5url;
+    }
+    for (var url in item.article!.urls!) {
+      if (url.h5Url != null) {
+        h5url = url.h5Url ?? '';
+        return h5url;
+      }
+    }
+    return h5url;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 import '../model/home_model.dart';
 
@@ -47,7 +48,8 @@ class SubNavWidget extends StatelessWidget {
     return Expanded(
         child: GestureDetector(
       onTap: () {
-        // TODO 跳转h5
+        NavigatorUtil.jumpH5(
+            context: context, url: model.url, title: model.title);
       },
       child: Column(
         children: [

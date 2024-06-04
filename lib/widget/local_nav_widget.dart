@@ -37,7 +37,8 @@ class LocalNavWidget extends StatelessWidget {
   Widget _item(BuildContext context, CommonModel model) {
     return GestureDetector(
       onTap: () {
-        NavigatorUtil.jumpH5(context: context, url: model.url, title: '详情');
+        NavigatorUtil.jumpH5(
+            context: context, url: model.url, title: model.title);
       },
       child: Column(
         children: [

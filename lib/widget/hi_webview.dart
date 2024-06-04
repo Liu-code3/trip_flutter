@@ -101,6 +101,7 @@ class _HiWebViewState extends State<HiWebView> {
           },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
+            // h5跳转请求
             if (_isToMain(request.url)) {
               debugPrint('阻止跳转到 ${request.url}');
               //返回到flutter页面

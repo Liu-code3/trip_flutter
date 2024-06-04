@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 import '../model/home_model.dart';
 
@@ -94,7 +95,8 @@ class GridNavWidget extends StatelessWidget {
   Widget _wrapGesture(BuildContext context, Widget widget, CommonModel model) {
     return GestureDetector(
       onTap: () {
-        //Todo 跳转h5
+        NavigatorUtil.jumpH5(
+            context: context, url: model.url, title: model.title);
       },
       child: widget,
     );

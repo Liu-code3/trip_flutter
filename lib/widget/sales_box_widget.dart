@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_flutter/model/home_model.dart';
+import 'package:trip_flutter/util/navigator_util.dart';
 
 class SalesBoxWidget extends StatelessWidget {
   final SalesBox salesBox;
@@ -83,7 +84,8 @@ class SalesBoxWidget extends StatelessWidget {
     double width = MediaQuery.of(context).size.width / 2 - 10;
     return GestureDetector(
       onTap: () {
-        // TODO 跳转h5
+        NavigatorUtil.jumpH5(
+            context: context, url: model.url, title: model.title);
       },
       child: Container(
         decoration: BoxDecoration(
