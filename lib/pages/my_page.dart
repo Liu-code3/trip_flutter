@@ -8,18 +8,20 @@ class MyPage extends StatefulWidget {
   State<MyPage> createState() => _MyPageState();
 }
 
-class _MyPageState extends State<MyPage> {
+class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.blue,
-            centerTitle: true,
-            titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
-            title: const Text('我的')),
-        body: const HiWebView(
-          url: 'https://www.imooc.com/t/4951150#Shizhan',
-          hideAppBar: true,
-        ));
+    super.build(context);
+    return const Scaffold(
+        body: HiWebView(
+      url: 'https://m.ctrip.com/webapp/myctrip/',
+      hideAppBar: true,
+      backForbid: true, // 隐藏h5界面返回按钮
+      statusBarColor: '0160A0',
+    ));
   }
+
+  //切换tab的时候 不销毁我的页面
+  @override
+  bool get wantKeepAlive => true;
 }

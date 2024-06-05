@@ -11,7 +11,7 @@ class HiWebView extends StatefulWidget {
   final String? title;
   final bool? hideAppBar;
 
-  ///禁止我的页面返回按钮
+  ///是否隐藏h5中的返回按钮
   final bool? backForbid;
 
   const HiWebView(
