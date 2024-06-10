@@ -108,10 +108,11 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  _login(BuildContext context) {
+  _login(BuildContext context) async {
     try {
-      LoginDao.login(userName: userName!, password: password!);
-      NavigatorUtil.goToHome(context);
+      // 需要添加await等登录完成没有问题后再跳转到首页
+      await LoginDao.login(userName: userName!, password: password!);
+      context.mounted && NavigatorUtil.goToHome(context);
     } catch (e) {
       print(e);
     }
