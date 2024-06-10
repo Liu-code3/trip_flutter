@@ -51,6 +51,8 @@ dependencies:
   webview_flutter: ^4.8.0
   # 首页白屏增加图片
   flutter_splash_screen: ^3.0.0
+  # 跳转
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_test:

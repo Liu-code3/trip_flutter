@@ -3,7 +3,6 @@ import 'package:trip_flutter/pages/home_page.dart';
 import 'package:trip_flutter/pages/my_page.dart';
 import 'package:trip_flutter/pages/search_page.dart';
 import 'package:trip_flutter/pages/travel_page.dart';
-import 'package:trip_flutter/util/navigator_util.dart';
 
 class TabNavigatorPage extends StatefulWidget {
   const TabNavigatorPage({super.key});
@@ -24,7 +23,7 @@ class _TabNavigatorStateState extends State<TabNavigatorPage> {
   @override
   Widget build(BuildContext context) {
     //更新导航器的context，供退出登录时使用
-    NavigatorUtil.updateContext(context);
+    // NavigatorUtil.updateContext(context);
     return Scaffold(
       body: PageView(
         controller: _controller,
