@@ -49,6 +49,8 @@ dependencies:
   transparent_image: ^2.0.1
   # h5容器
   webview_flutter: ^4.8.0
+  # 首页白屏增加图片
+  flutter_splash_screen: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hi_cache/flutter_hi_cache.dart';
+import 'package:flutter_splash_screen/flutter_splash_screen.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
 import 'package:trip_flutter/navifator/tab_navigator.dart';
 import 'package:trip_flutter/pages/login_page.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: FutureBuilder<dynamic>(
-        future: HiCache.preInit(),
+        future: _doInit(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           ScreenHelper.init(context); // 初始化屏幕适配工具
           if (snapshot.connectionState == ConnectionState.done) {
@@ -41,6 +42,14 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> _doInit() async {
+    await HiCache.preInit(); // 预初始化
+    //关闭启动屏
+    Future.delayed(const Duration(milliseconds: 500), () {
+      FlutterSplashScreen.hide();
+    });
   }
 }
 
