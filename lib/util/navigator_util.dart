@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:trip_flutter/navifator/tab_navigator.dart';
 import 'package:trip_flutter/pages/login_page.dart';
 import 'package:trip_flutter/widget/hi_webview.dart';
 
@@ -28,7 +27,8 @@ class NavigatorUtil {
     // Navigator.pushReplacement(context,
     //     MaterialPageRoute(builder: (context) => const TabNavigatorPage()));
     //使用getx跳转到主页并且不让返回 offAll方法替换全部的页面
-    Get.offAll(const TabNavigatorPage());
+    // Get.offAll(const TabNavigatorPage());
+    //   TODO 跳转首页
   }
 
   ///跳转到登录页

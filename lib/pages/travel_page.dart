@@ -8,7 +8,7 @@ class TravelPage extends StatelessWidget {
   const TravelPage({super.key});
 
   get _tabBar {
-    return GetBuilder<TravelController>(builder: (TravelController controller) {
+    return GetBuilder<TravelController>(builder: (controller) {
       return TabBar(
           controller: controller.controller,
           isScrollable: true, // 可以滚动
