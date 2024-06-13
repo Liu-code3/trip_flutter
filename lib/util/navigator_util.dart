@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:trip_flutter/mvvm/routes/app_pages.dart';
 import 'package:trip_flutter/pages/login_page.dart';
 import 'package:trip_flutter/widget/hi_webview.dart';
 
@@ -28,7 +29,8 @@ class NavigatorUtil {
     //     MaterialPageRoute(builder: (context) => const TabNavigatorPage()));
     //使用getx跳转到主页并且不让返回 offAll方法替换全部的页面
     // Get.offAll(const TabNavigatorPage());
-    //   TODO 跳转首页
+    // 当使用getx依赖注入后，需要使用路由名称跳转，才能确保依赖注入生效，切换页面的时候不丢失controller的状态
+    Get.offAllNamed(Routes.main);
   }
 
   ///跳转到登录页
