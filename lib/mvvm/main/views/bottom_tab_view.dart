@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_flutter/mvvm/controllers/controller.dart';
+import 'package:trip_flutter/mvvm/main/controllers/controller.dart';
 import 'package:trip_flutter/pages/home_page.dart';
 import 'package:trip_flutter/pages/my_page.dart';
 import 'package:trip_flutter/pages/search_page.dart';

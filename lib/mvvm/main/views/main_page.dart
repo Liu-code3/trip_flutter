@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hi_cache/flutter_hi_cache.dart';
 import 'package:flutter_splash_screen/flutter_splash_screen.dart';
 import 'package:trip_flutter/dao/login_dao.dart';
-import 'package:trip_flutter/mvvm/views/bottom_tab_view.dart';
+import 'package:trip_flutter/mvvm/main/views/bottom_tab_view.dart';
 import 'package:trip_flutter/pages/login_page.dart';
 import 'package:trip_flutter/util/screen_adapter_helper.dart';
 
