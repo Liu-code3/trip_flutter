@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:trip_flutter/dao/login_dao.dart';
-import 'package:trip_flutter/util/navigator_util.dart';
-import 'package:trip_flutter/util/string_util.dart';
+import 'package:get/get.dart';
+import 'package:trip_flutter/mvvm/login/controllers/controller.dart';
 import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/input_widget.dart';
 import 'package:trip_flutter/widget/login_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends GetView<LoginViewModel> {
   const LoginPage({super.key});
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  bool loginEnable = false; // 依据账号密码是否填充 提现 登录按钮状态
-  String? userName;
-  String? password;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, // 防止键盘弹起影响布局
       body: Stack(
-        children: [..._background(), _content()],
+        children: [..._background(), Obx(() => _content())],
       ),
     );
   }
@@ -59,32 +48,28 @@ class _LoginPageState extends State<LoginPage> {
             hiSpace(height: 40),
             InputWidget(
               '请输入账号',
-              onChanged: (text) {
-                userName = text;
-                _checkInput();
-              },
+              onChanged: (text) =>
+                  controller.onValueChanged(text, LoginInputType.username),
             ),
             hiSpace(height: 40),
             InputWidget(
               '请输入密码',
               obscureText: true,
-              onChanged: (text) {
-                password = text;
-                _checkInput();
-              },
+              onChanged: (text) =>
+                  controller.onValueChanged(text, LoginInputType.password),
             ),
             hiSpace(height: 45),
             LoginButton(
               '登录',
-              enable: loginEnable,
+              enable: controller.loginEnable.value,
               // 这里的函数可以是 () => _login() 也可以是 _login.
-              onPressed: () => _login(context),
+              onPressed: () => controller.login(),
             ),
             hiSpace(height: 15),
             Align(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () => _jumpRegistration(),
+                onTap: () => controller.jumpRegistration(),
                 child: const Text(
                   "注册账号",
                   style: TextStyle(color: Colors.white),
@@ -93,37 +78,5 @@ class _LoginPageState extends State<LoginPage> {
             )
           ],
         ));
-  }
-
-  void _checkInput() {
-    bool enable;
-    if (isNotEmpty(userName) && isNotEmpty(password)) {
-      enable = true;
-    } else {
-      enable = false;
-    }
-
-    setState(() {
-      loginEnable = enable;
-    });
-  }
-
-  _login(BuildContext context) async {
-    try {
-      // 需要添加await等登录完成没有问题后再跳转到首页
-      await LoginDao.login(userName: userName!, password: password!);
-      context.mounted && NavigatorUtil.goToHome(context);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  _jumpRegistration() async {
-    //跳转h5网页
-    Uri uri =
-        Uri.parse('https://github.com/Liu-code3/trip_flutter/commits/main/');
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch $uri';
-    }
   }
 }

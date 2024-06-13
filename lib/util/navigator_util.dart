@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:trip_flutter/mvvm/routes/app_pages.dart';
-import 'package:trip_flutter/pages/login_page.dart';
 import 'package:trip_flutter/widget/hi_webview.dart';
 
 class NavigatorUtil {
@@ -23,7 +22,7 @@ class NavigatorUtil {
   }
 
   ///跳转到首页
-  static goToHome(BuildContext context) {
+  static goToHome() {
     //跳转到主页并不让返回 当封装了导航页之后，就不需要再跳转到HomePage了
     // Navigator.pushReplacement(context,
     //     MaterialPageRoute(builder: (context) => const TabNavigatorPage()));
@@ -39,7 +38,8 @@ class NavigatorUtil {
     // Navigator.pushReplacement(
     //     _context!, MaterialPageRoute(builder: (context) => const LoginPage()));
     //使用getx跳转到登录页并且不让返回 off方法替换当前的页面
-    Get.off(const LoginPage());
+    // Get.off(const LoginPage());
+    Get.offAllNamed(Routes.login);
   }
 
   ///返回上一页
